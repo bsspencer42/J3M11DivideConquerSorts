@@ -39,6 +39,50 @@ public class Sorting {
      */
     public static <T> void mergeSort(T[] arr, Comparator<T> comparator) {
         // WRITE YOUR CODE HERE (DO NOT MODIFY METHOD HEADER)!
+        // Base Case - Array Length of 1
+        if (arr.length == 1){
+            return;
+        }
+
+        // Create new sub-arrays
+        int midIndex = arr.length / 2;
+        T[] left = (T[]) new Object[midIndex];
+        for (int i = 0; i < midIndex;i++)
+            left[i] = arr[i];
+        T[] right = (T[]) new Object[arr.length-midIndex];
+        for (int i = 0; i < arr.length-midIndex;i++)
+            right[i] = arr[midIndex+i];
+        // End create sub-arrays
+
+        // Recurse
+        mergeSort(left,comparator);
+        mergeSort(right,comparator);
+
+        // Combine Left/Right
+        Integer i = 0;
+        Integer j = 0;
+        // Compare until one array empty
+        while (i < left.length && j < right.length){
+            if (comparator.compare(left[i], right[j]) <= 0){
+                arr[i+j] = left[i];
+                i++;
+            }
+            else {
+                arr[i+j] = right[j];
+                j++;
+            }
+        }
+        // Copy Remainder to new array
+        while (j < right.length){
+            arr[i+j] = right[j];
+            j++;
+        }
+        while (i < left.length){
+            arr[i+j] = left[i];
+            i++;
+        }
+
+
     }
 
     /**
@@ -73,10 +117,30 @@ public class Sorting {
      */
     public static void lsdRadixSort(int[] arr) {
         // WRITE YOUR CODE HERE (DO NOT MODIFY METHOD HEADER)!
+        System.out.println("Yay!");
+    }
+
+    public static <T> void printArr(T[] arr){
+        String myString = "[";
+        for (int i = 0; i < arr.length;i++){
+            if (i != 0 && i != arr.length)
+                myString += ", ";
+            myString += arr[i];
+        }
+        myString+="]";
+        System.out.println(myString);
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello");
+        Comparator<Integer> comparator = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2;
+            }
+        };
+        Integer[] myList = {4,2,1,0,3};
+        mergeSort(myList,comparator);
+        printArr(myList);
     }
 
 }
