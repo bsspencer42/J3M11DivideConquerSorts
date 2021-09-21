@@ -1,7 +1,5 @@
-import java.util.Comparator;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * Your implementation of various divide & conquer sorting algorithms.
@@ -119,7 +117,36 @@ public class Sorting {
         // WRITE YOUR CODE HERE (DO NOT MODIFY METHOD HEADER)!y
         // Get max number of digits
         int k = maxDigs(arr);
-        //
+
+        // Create Queue list
+        Queue<Integer>[] lsdArr = new Queue[19];
+
+        // Outer Loop
+        for (int i = 0; i < k;i++){
+            // Add values to bins
+            for (int j = 0; j < arr.length;j++){
+                // Get bin value
+                int lsdIndex = lsdIndex(arr[j], i);
+
+                // Add value to index
+                System.out.println(lsdIndex + " and " + arr[j]);
+                if (lsdArr[lsdIndex+9] == null){
+                    lsdArr[lsdIndex+9] = new LinkedList<Integer>();
+                }
+                lsdArr[lsdIndex+9].add(arr[j]);
+            }
+            // Mod original Array
+            int arrPos = 0;
+            for (Queue<Integer> currQueue : lsdArr){
+                System.out.println(currQueue);
+                while (currQueue != null && !currQueue.isEmpty()){
+                    arr[arrPos] = currQueue.remove();
+                    arrPos++;
+                }
+            }
+            printInt(arr);
+        }
+
 
 
     }
@@ -142,6 +169,13 @@ public class Sorting {
         }
         System.out.println("Max Digs = " + maxDigs);
         return maxDigs;
+    }
+
+    private static int lsdIndex(int num, int index){
+        for (int i = 0; i < index; i++){
+            num /= 10;
+        }
+        return num % 10;
     }
 
     public static <T> void printArr(T[] arr){
