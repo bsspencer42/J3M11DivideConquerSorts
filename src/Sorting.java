@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -38,10 +37,11 @@ public class Sorting {
     public static <T> void mergeSort(T[] arr, Comparator<T> comparator) {
         // WRITE YOUR CODE HERE (DO NOT MODIFY METHOD HEADER)!
         // Base Case - Array Length of 1
-        if (arr.length == 1){
+        if (arr.length <= 1){
             return;
         }
 
+        System.out.println("test");
         // Create new sub-arrays
         int midIndex = arr.length / 2;
         T[] left = (T[]) new Object[midIndex];
@@ -129,7 +129,6 @@ public class Sorting {
                 int lsdIndex = lsdIndex(arr[j], i);
 
                 // Add value to index
-                System.out.println(lsdIndex + " and " + arr[j]);
                 if (lsdArr[lsdIndex+9] == null){
                     lsdArr[lsdIndex+9] = new LinkedList<Integer>();
                 }
@@ -138,17 +137,12 @@ public class Sorting {
             // Mod original Array
             int arrPos = 0;
             for (Queue<Integer> currQueue : lsdArr){
-                System.out.println(currQueue);
                 while (currQueue != null && !currQueue.isEmpty()){
                     arr[arrPos] = currQueue.remove();
                     arrPos++;
                 }
             }
-            printInt(arr);
         }
-
-
-
     }
     private static int maxDigs(int[] arr){
         int currVal;
@@ -165,9 +159,7 @@ public class Sorting {
             }
             if (currDigs > maxDigs)
                 maxDigs = currDigs;
-            System.out.println(arr[i] + " : Digs = " + currDigs);
         }
-        System.out.println("Max Digs = " + maxDigs);
         return maxDigs;
     }
 
@@ -206,12 +198,12 @@ public class Sorting {
                 return o1 - o2;
             }
         };
-        Integer[] myList = {4,2,1,0,3};
-        int[] lsdList   = {1,99,100,999,1000,99999999};
-        //mergeSort(myList,comparator);
-        lsdRadixSort(lsdList);
-        //printArr(myList);
-        printInt(lsdList);
+        Integer[] myList = {};
+        int[] lsdList   = {1,99,-10, 14, -822, -1, 0 , 0, 100,999,1000,99999999};
+        mergeSort(myList,comparator);
+        //lsdRadixSort(lsdList);
+        printArr(myList);
+        //printInt(lsdList);
 
     }
 
