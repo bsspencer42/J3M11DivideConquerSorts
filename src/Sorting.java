@@ -116,11 +116,45 @@ public class Sorting {
      * @param arr The array to be sorted.
      */
     public static void lsdRadixSort(int[] arr) {
-        // WRITE YOUR CODE HERE (DO NOT MODIFY METHOD HEADER)!
-        System.out.println("Yay!");
+        // WRITE YOUR CODE HERE (DO NOT MODIFY METHOD HEADER)!y
+        // Get max number of digits
+        int k = maxDigs(arr);
+        //
+
+
+    }
+    private static int maxDigs(int[] arr){
+        int currVal;
+        int currDigs=0;
+        int maxDigs = 1;
+        for (int i = 0; i < arr.length;i++){
+            currDigs = 0;
+            currVal = arr[i];
+            if (currVal == 0)
+                currDigs++;
+            while (currVal != 0){
+                currVal = currVal / 10;
+                currDigs++;
+            }
+            if (currDigs > maxDigs)
+                maxDigs = currDigs;
+            System.out.println(arr[i] + " : Digs = " + currDigs);
+        }
+        System.out.println("Max Digs = " + maxDigs);
+        return maxDigs;
     }
 
     public static <T> void printArr(T[] arr){
+        String myString = "[";
+        for (int i = 0; i < arr.length;i++){
+            if (i != 0 && i != arr.length)
+                myString += ", ";
+            myString += arr[i];
+        }
+        myString+="]";
+        System.out.println(myString);
+    }
+    public static void printInt(int[] arr){
         String myString = "[";
         for (int i = 0; i < arr.length;i++){
             if (i != 0 && i != arr.length)
@@ -139,8 +173,12 @@ public class Sorting {
             }
         };
         Integer[] myList = {4,2,1,0,3};
-        mergeSort(myList,comparator);
-        printArr(myList);
+        int[] lsdList   = {1,99,100,999,1000,99999999};
+        //mergeSort(myList,comparator);
+        lsdRadixSort(lsdList);
+        //printArr(myList);
+        printInt(lsdList);
+
     }
 
 }
